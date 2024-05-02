@@ -9,21 +9,7 @@ import SwiftUI
 
 struct ChatRoomScreen: View {
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(0..<12) { _ in
-                    Text("PLACEHOLDER")
-                        .font(.title) 
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 200)
-                        .bold()
-                        .background(Color(.systemGray6))
-
-                }
-            }
-            
-                
-        }
+        MessageListView()
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             leadingNavItems()
