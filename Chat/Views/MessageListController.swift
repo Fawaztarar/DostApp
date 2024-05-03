@@ -23,7 +23,7 @@ private lazy var tableView: UITableView = {
     tableView.delegate = self
     tableView.dataSource = self
     tableView.separatorStyle = .none
-//    tableView.backgroundColor = .red
+    tableView.backgroundColor =  UIColor.gray.withAlphaComponent(0.4)
     tableView.translatesAutoresizingMaskIntoConstraints = false
     return tableView
 
@@ -53,19 +53,24 @@ extension MessageListController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
+        let message = MessageItem.stubMessages[indexPath.row]
 
         cell.contentConfiguration = UIHostingConfiguration {
-            BubbleTextView(item: .sentplaceholder)
-                        
+            switch message.type {
+                case .text:
+                    BubbleTextView(item: message)
+                case .video, .photo:
+                    BubbleImageView(item: message)
+            }         
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return MessageItem.stubMessages.count
     }
 
-
+ 
 
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableView.automaticDimension

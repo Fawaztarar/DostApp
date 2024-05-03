@@ -22,4 +22,8 @@ struct MessageListView: UIViewControllerRepresentable {
 
 #Preview {
     MessageListView()
+//    .frame(maxWidth: .infinity)
+////    .padding(.horizontal)
+//    .background(Color.gray.opacity(0.4))
+     
 }

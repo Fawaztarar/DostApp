@@ -99,7 +99,7 @@ extension ChannelTabScreen {
         HStack {
             Image(systemName: "lock.fill")
                 .padding(8)
-            Text("Your peroanl messages are ")
+            Text("Your messages are ")
                 .foregroundColor(.gray)
         
             +

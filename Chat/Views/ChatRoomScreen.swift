@@ -10,11 +10,13 @@ import SwiftUI
 struct ChatRoomScreen: View {
     var body: some View {
         MessageListView()
+    
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             leadingNavItems()
             trailingNavItems()
         }
+        .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom) {
             TextInputArea()
         }
