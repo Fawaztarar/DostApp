@@ -32,10 +32,11 @@ struct MessageItem: Identifiable {
         MessageItem(text: "Hello", type: .text, direction: .sent),
         MessageItem(text: "Checkout thus Photo", type: .photo, direction: .received),
         MessageItem(text: "Play this Video", type: .video, direction: .sent),
+        MessageItem(text: "Listen to this Audio", type: .audio, direction: .received), 
     ]
 }
     enum MessageType {
-        case text, photo, video
+        case text, photo, video, audio
     }
 
 enum MessageDirection {
