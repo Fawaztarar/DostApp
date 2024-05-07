@@ -47,8 +47,9 @@ struct BubbleImageView: View {
             Image(.stubImage0)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 220, height: 100)
-                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                .frame(width: 220, height: 180)
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 10, style: .continuous))
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(Color(.systemGray5))
@@ -58,7 +59,7 @@ struct BubbleImageView: View {
                     .stroke(Color(.systemGray5))
                 )
                 .padding(5)
-                .overlay(alignment: .bottomTrailing){
+                .overlay(alignment: .bottomTrailing) {
                     timeStampTextView()
                 }
             Text(item.text)

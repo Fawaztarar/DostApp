@@ -30,7 +30,7 @@ struct MessageItem: Identifiable {
     }
     static let stubMessages: [MessageItem] = [
         MessageItem(text: "Hello", type: .text, direction: .sent),
-        MessageItem(text: "Checkout thus Photo", type: .photo, direction: .received),
+        MessageItem(text: "Checkout this Photo", type: .photo, direction: .received),
         MessageItem(text: "Play this Video", type: .video, direction: .sent),
         MessageItem(text: "Listen to this Audio", type: .audio, direction: .received), 
     ]

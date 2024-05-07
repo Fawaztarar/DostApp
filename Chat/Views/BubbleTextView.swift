@@ -16,8 +16,8 @@ struct BubbleTextView: View {
         Text("Salam Kia hal hai Janab ")
             .padding(10)
             .background(item.backgroundColor)
-            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-            .applyTail(item.direction) 
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .applyTail(item.direction)
 
          timeStampTextView()
     }
@@ -57,5 +57,6 @@ struct BubbleTextView: View {
         BubbleTextView(item: .receivedplaceholder)
     }
     .frame(maxWidth: .infinity)
-    .background(Color.gray.opacity(0.1))
+    .background(Color.gray.opacity(0.4))
 }
+ 
