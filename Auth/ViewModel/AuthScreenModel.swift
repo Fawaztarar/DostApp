@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+@MainActor
 final class AuthScreenModel: ObservableObject {
 
     @Published var isLoading = false

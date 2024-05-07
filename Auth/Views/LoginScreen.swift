@@ -35,6 +35,11 @@ struct LoginScreen: View {
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
             .background(Color.teal.gradient)
             .ignoresSafeArea() 
+            .alert(isPresented: $authScreenModel.errorState.showError) {
+                Alert(title: Text(authScreenModel.errorState.errorMessage), dismissButton: .default(Text("OK"))
+                )
+                
+            }
         }
     }
     private func forgotPasswordButton() -> some View {
