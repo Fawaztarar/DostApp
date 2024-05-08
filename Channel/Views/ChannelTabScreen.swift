@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChannelTabScreen: View {
     @State private var searchText = ""
+    @State private var showChatPartnerPickerView = false
 
     var body: some View {
         NavigationView {
@@ -32,6 +33,10 @@ struct ChannelTabScreen: View {
                 leadingNavItem()
                 trailingNavItem()
             }
+            .sheet(isPresented: $showChatPartnerPickerView) {
+                ChatPartnerPickerScreen()
+            }
+                           
         }
     }
 }
@@ -55,9 +60,9 @@ extension ChannelTabScreen {
     }
 }
 
-
+extension ChannelTabScreen {
     @ToolbarContentBuilder
-    private func trailingNavItem() -> some ToolbarContent {
+     private func trailingNavItem() -> some ToolbarContent {
         ToolbarItemGroup(placement: .topBarTrailing) {
             aiButton()
             cameraButton() 
@@ -67,17 +72,20 @@ extension ChannelTabScreen {
     }
     private func aiButton() -> some View {
         Button {
-            } label: {
-                Image(.circle)
-            }
+        } label: {
+            Image(.circle)
+        }
     }
-
+ 
     private func newChatButton() -> some View {
         Button {
-            } label: {
-                Image(.plus)
-            }
+            showChatPartnerPickerView = true
+        } label: {
+            Image(.plus)
+        }
     }
+
+
     private func cameraButton() -> some View {
         Button {
             } label: {
@@ -109,6 +117,7 @@ extension ChannelTabScreen {
         }
     }
 
+}
 
 #Preview {
     ChannelTabScreen()
