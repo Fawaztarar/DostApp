@@ -1,5 +1,5 @@
 //
-//  MainTabView.swift
+//   TabView.swift
 //  WhatsApp
 //
 //  Created by Fawaz Tarar on 30/04/2024.
@@ -9,7 +9,11 @@ import SwiftUI
 
 struct MainTabView: View {
 
-    init() {
+    private let currentUser: UserItem
+
+    init(_ currentUser: UserItem) {
+        self.currentUser = currentUser
+        
         makeTabBarOpaque()
         let thumbImage = UIImage(systemName: "circle.fill")
         UISlider.appearance().setThumbImage(thumbImage, for: .normal)
@@ -92,5 +96,5 @@ extension MainTabView{
 }
 
 #Preview {
-    MainTabView()
+    MainTabView(.placeholder)
 }

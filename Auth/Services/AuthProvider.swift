@@ -28,6 +28,7 @@ protocol AuthProvider {
 enum AuthError: Error {
     case accountCreationFailed(_ description: String)
     case failedtosaveUserToDatabase(_ description: String)
+    case emailloginFailed(_ description: String)
 }
 
 extension AuthError: LocalizedError {
@@ -36,6 +37,9 @@ extension AuthError: LocalizedError {
         case .accountCreationFailed(let description):
             return description
         case .failedtosaveUserToDatabase(let description):
+            return description
+
+        case .emailloginFailed(let description):
             return description
         }
     }
@@ -59,13 +63,20 @@ final class AuthManager: AuthProvider {
         if Auth.auth().currentUser == nil {
             authState.send(.loggedOut)
         } else {
-            await fetchCurrentUserInfo()
+             fetchCurrentUserInfo()
         }
     }
 
 
     func login(with email: String, and password: String) async throws {
-        // Implement login logic here
+        do {
+            let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
+            fetchCurrentUserInfo()
+            print("🔐 Successfully logged in: \(authResult.user.email ?? "")")
+        } catch {
+            print("🔐 Failed to login with email: \(email)")
+            throw AuthError.emailloginFailed(error.localizedDescription)
+        }
     }
 
     func createAccount(for username: String, with email: String, and password: String) async throws {
@@ -104,7 +115,7 @@ final class AuthManager: AuthProvider {
         }
     }
 
-    private func fetchCurrentUserInfo() async {
+    private func fetchCurrentUserInfo() {
         // Implement fetch user from database logic here
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         FirebaseConstants.UserRef.child(currentUid).observe(.value) {[weak self] snapshot in
