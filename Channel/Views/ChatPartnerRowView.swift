@@ -7,15 +7,21 @@
 
 import SwiftUI
 
-struct ChatPartnerRowView: View {
-    let user: UserItem
+struct ChatPartnerRowView<Content: View>: View {
+    private let user: UserItem
+    private let trailingItems : Content
+
+    init(user: UserItem, @ViewBuilder trailingItems: () -> Content = { EmptyView() }) {
+        self.user = user
+        self.trailingItems = trailingItems()
+    }
     
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
+        HStack {
             Circle()
                 .frame(width: 40, height: 40)
             
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading) {
                 Text(user.username)
                     .bold()
                     .foregroundStyle(.whatsAppBlack)
@@ -25,11 +31,13 @@ struct ChatPartnerRowView: View {
                     .foregroundStyle(.gray)
                 
             }
-            }
-                
+            trailingItems
+           
         }
+            
+    }
 }
 
 #Preview {
-    ChatPartnerRowView(user: .placeholder)
+    ChatPartnerRowView(user: .placeholder) 
 }
