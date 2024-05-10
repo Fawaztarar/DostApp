@@ -11,6 +11,8 @@ struct ChannelTabScreen: View {
     @State private var searchText = ""
     @State private var showChatPartnerPickerView = false
 
+    
+
     var body: some View {
         NavigationView {
             List {

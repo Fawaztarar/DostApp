@@ -17,6 +17,10 @@ struct ChatPartnerPickerScreen: View {
             List {
                 ForEach(ChatPartnerPickerOption.allCases) { item in
                     HeaderItemView(item: item)
+                    .onTapGesture {
+                        viewModel.navStack.append(.groupPartnerPicker)
+                    }
+                        
                 }
                 Section {
                     ForEach(0..<12) { _ in
@@ -34,7 +38,7 @@ struct ChatPartnerPickerScreen: View {
             .navigationDestination(for: ChannelCreationRoute.self) { route in
                 destinationView(for: route)
                 
-                } 
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 trailingNavItem()
@@ -91,14 +95,14 @@ extension ChatPartnerPickerScreen {
 
         var body: some View {
             Button  {
-               
+                
             } label: {
                 buttonBody()
             }
         }
         private func buttonBody() -> some View {
             HStack {
-                Image(systemName: item.ImageName)
+                Image(systemName: item.imageName)
                     .font(.footnote)
                     .frame(width: 40, height: 40)
                     .background(Color(.systemGray6))
@@ -114,7 +118,7 @@ extension ChatPartnerPickerScreen {
 
 enum ChatPartnerPickerOption: String, CaseIterable, Identifiable {
     case newGroup = "New Group"
-     case newContact = "New Contact"
+    case newContact = "New Contact"
     case newCommunity = "New Community"
 
     var id: String { 
@@ -125,7 +129,7 @@ enum ChatPartnerPickerOption: String, CaseIterable, Identifiable {
         return rawValue
     }
 
-    var ImageName: String {
+    var imageName: String {
         switch self {
         case .newGroup:
             return "person.2.fill"
