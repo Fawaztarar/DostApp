@@ -51,7 +51,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             self.users.append(contentsOf: fetchedUsers)
             self.lastCursor = userNode.currentCursor
             
-            print("lastCursor: \(lastCursor) \(users.count)")
+            print("lastCursor: \(String(describing: lastCursor)) \(users.count)")
 
         } catch {
             print("Error fetching users: \(error.localizedDescription)")
