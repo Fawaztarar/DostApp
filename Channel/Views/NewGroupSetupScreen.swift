@@ -22,12 +22,15 @@ struct NewGroupSetupScreen: View {
                 Text("Group Permissions")     
             }
             Section {
-                SelectedChatPartnerVIew(users: UserItem.placeholders) { user in
+                SelectedChatPartnerVIew(users: viewModel.selectedChatPartners) { user in
                     viewModel.handleItemSelection(user)
                 } 
 
             } header: {
-                Text("Participants: 10/10 ")
+                let count = viewModel.selectedChatPartners.count
+                let maxCount = ChannelContants.maxGroupMembers
+ 
+                Text("Participants: \(count) of \(maxCount) ")
                 .bold()
             }
             .listRowBackground(Color.clear)
@@ -41,16 +44,27 @@ struct NewGroupSetupScreen: View {
     }
     private func channelSetUpHeaderView () -> some View {
         HStack {
-            Circle()
-            .frame(width: 60, height: 60)
+            profileImageView()
 
             TextField("",
              text: $ChannelName,
                 prompt: Text("Group Name(optional)"),
                 axis: .vertical
-            )
+            )    
+        }
+    }
 
-            
+    private func profileImageView() -> some View {
+        Button {
+            // Add your action here
+        } label: {
+            ZStack {
+                Image(systemName: "camera.fill")
+                    .imageScale(.large)
+            }
+            .frame(width: 60, height: 60)
+            .background(Color(.systemGray6))
+            .clipShape(Circle())
                
         }
     }

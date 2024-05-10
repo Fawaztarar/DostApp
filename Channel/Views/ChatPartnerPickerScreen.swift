@@ -23,14 +23,18 @@ struct ChatPartnerPickerScreen: View {
                         
                 }
                 Section {
-                    ForEach(0..<12) { _ in
-                        ChatPartnerRowView(user: .placeholder) 
+                    ForEach(viewModel.users) { user in
+                        ChatPartnerRowView(user: user) 
                     }
                 } header : {
                     Text("Contacts on xWhatsApp")
                         .textCase(.none)
                         .bold() 
                 }
+                if viewModel.isPaginatable {
+                    loadMoreUsersView()
+                }
+                
             }
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search name or number")
             
@@ -45,6 +49,14 @@ struct ChatPartnerPickerScreen: View {
             }
         }
         
+    }
+    private func loadMoreUsersView() -> some View {
+        ProgressView()
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color.clear)
+            .task {
+                await viewModel.fetchUsers()
+            }
     }
 }
 

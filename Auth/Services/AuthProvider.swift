@@ -131,3 +131,38 @@ final class AuthManager: AuthProvider {
     }
 }
 
+extension AuthManager {
+    static let testAccounts: [String ] = [
+    "x1@test.com",
+    "x2@test.com",
+    "x3@test.com",
+    "x4@test.com",
+    "x5@test.com",
+    "x6@test.com",
+    "x7@test.com",
+    "x8@test.com",
+    "x9@test.com",
+    "x10@test.com",
+    "x11@test.com",
+    "x12@test.com",
+    "x13@test.com",
+    "x14@test.com",
+    "x15@test.com",
+    "x16@test.com",
+    "x17@test.com",
+    "x18@test.com",
+    "x19@test.com",
+    "x20@test.com",
+    "x21@test.com",
+    "x23@test.com",
+    "x24@test.com",
+    "x25@test.com",
+    "x26@test.com",
+    "x27@test.com",
+    "x28@test.com",
+    "x29@test.com",
+    "x30@test.com",
+
+
+    ]
+}
