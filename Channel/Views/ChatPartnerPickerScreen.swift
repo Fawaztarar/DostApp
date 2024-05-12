@@ -12,12 +12,16 @@ struct ChatPartnerPickerScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = ChatPartnerPickerViewModel()
 
+    var onCreate: (_ newChannel: ChannelItem) -> Void
+
     var body: some View {
         NavigationStack(path: $viewModel.navStack) {
             List {
                 ForEach(ChatPartnerPickerOption.allCases) { item in
-                    HeaderItemView(item: item)
-                    .onTapGesture {
+                    HeaderItemView(item: item) {
+                        guard item == ChatPartnerPickerOption.newGroup else {
+                            return
+                        }
                         viewModel.navStack.append(.groupPartnerPicker)
                     }
                         
@@ -25,6 +29,9 @@ struct ChatPartnerPickerScreen: View {
                 Section {
                     ForEach(viewModel.users) { user in
                         ChatPartnerRowView(user: user) 
+                            .onTapGesture {
+                                viewModel.createDirectChannel (user, completion: onCreate)
+                            }
                     }
                 } header : {
                     Text("Contacts on xWhatsApp")
@@ -44,8 +51,18 @@ struct ChatPartnerPickerScreen: View {
                 
             }
             .navigationBarTitleDisplayMode(.inline)
+            .alert(isPresented: $viewModel.errorState.showError) {
+                Alert(title: Text("🤨 Uh ho"),
+                      message: Text(viewModel.errorState.errorMessage), dismissButton: .default(Text("OK"))
+                )
+                
+            }
             .toolbar {
                 trailingNavItem()
+            }
+            .onAppear {
+                viewModel.deSelectAllChatPartners()
+                
             }
         }
         
@@ -67,7 +84,7 @@ extension ChatPartnerPickerScreen {
         case .groupPartnerPicker:
             GroupPartnerPickerScreen(viewModel: viewModel)
         case .setupGroupChat:
-            NewGroupSetupScreen(viewModel: viewModel)
+            NewGroupSetupScreen(viewModel: viewModel, onCreate: onCreate)
             
         }
     }
@@ -94,7 +111,7 @@ extension ChatPartnerPickerScreen {
                 .foregroundStyle(.gray)
                 .padding(8)
                 .background(Color(.systemGray5))
-                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                .clipShape(Circle() )
                 
         }
     }
@@ -104,10 +121,11 @@ extension ChatPartnerPickerScreen {
 extension ChatPartnerPickerScreen {
     private struct HeaderItemView: View {
         let item: ChatPartnerPickerOption
+        let onTapHandler: () -> Void
 
         var body: some View {
             Button  {
-                
+                onTapHandler()  
             } label: {
                 buttonBody()
             }
@@ -155,5 +173,6 @@ enum ChatPartnerPickerOption: String, CaseIterable, Identifiable {
 }
 
 #Preview {
-    ChatPartnerPickerScreen()
+    ChatPartnerPickerScreen { channel in
+    }
 }
