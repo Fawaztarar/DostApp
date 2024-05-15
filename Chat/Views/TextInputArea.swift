@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct TextInputArea: View {
-    @State private var text = ""
+    @Binding var textMessage: String
+    
+    let onSendHandler: () -> Void
+
+    private var disableSendButton: Bool {
+        return textMessage.isEmptyOrWhitespace
+    }
 
     var body: some View {
         HStack(alignment: .bottom,spacing: 5 ){
@@ -17,6 +23,8 @@ struct TextInputArea: View {
             audioRecorderButton()
             messsageTextField()
             sendMessageButton()
+                .disabled(disableSendButton)
+                .grayscale(disableSendButton ? 0.8 : 0)
 
         }
         .padding(.bottom)
@@ -26,7 +34,7 @@ struct TextInputArea: View {
         
     }
 private func messsageTextField() -> some View {
-    TextField("", text: $text, axis: .vertical)
+    TextField("", text: $textMessage , axis: .vertical)
         .padding(5)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
@@ -64,6 +72,7 @@ private func audioRecorderButton() -> some View {
 }
 private func sendMessageButton() -> some View {
     Button {
+        onSendHandler()
         
     } label: {
         Image(systemName: "arrow.up")
@@ -73,12 +82,14 @@ private func sendMessageButton() -> some View {
             .background(Color.blue)
             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
             
-}
-}
+        }
+    }
 
 }
 
 
 #Preview {
-    TextInputArea()
+    TextInputArea(textMessage: .constant("")) {
+        
+    }
 }

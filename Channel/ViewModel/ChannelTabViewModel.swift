@@ -12,10 +12,13 @@ import Firebase
 
 final class ChannelTabViewModel: ObservableObject {
     
+    
     @Published var navigateToChatRoom = false
     @Published var newChannel: ChannelItem?
     @Published var showChatPartnerPickerView = false
     @Published var channels = [ChannelItem]()
+    typealias ChannelId = String
+    @Published var channelDictionary: [ChannelId: ChannelItem] = [:]
 
     init() {
         fetchCurrentUserChannels()
@@ -50,7 +53,9 @@ final class ChannelTabViewModel: ObservableObject {
             var channel = ChannelItem(dict)
             self?.getChannelMembers(channel) { members in
                 channel.members = members
-                self?.channels.append(channel)
+                self?.channelDictionary[channelId] = channel 
+                self?.reloadData()
+                // self?.channels.append(channel)
                 print("channel: \(channel.title)")
             }
 
@@ -60,12 +65,20 @@ final class ChannelTabViewModel: ObservableObject {
     }
 
     private func getChannelMembers(_ channel: ChannelItem, completion: @escaping (_ members: [UserItem]) -> Void) {
-        UserService.getUsers(with: channel.membersUids) { userNode in
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        let channelMemberUids = Array(channel.membersUids.filter { $0 != currentUid }.prefix(2))
+        UserService.getUsers(with: channelMemberUids) { userNode in
             completion(userNode.users)
         }
         
     }
+    private func reloadData() {
+        self.channels = Array(channelDictionary.values)
+        self.channels.sort { $0.lastMessageTimeStamp > $1.lastMessageTimeStamp }
+        }
+        
+    }
 
-}
+
 
 
