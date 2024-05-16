@@ -13,7 +13,7 @@ struct BubbleAudioView: View {
     @State private var sliderRange: ClosedRange<Double> = 0...20
 
     var body: some View {
-        VStack(alignment: item.HorizontalAlignment, spacing: 3) {
+        VStack(alignment: item.horizontalAlignment, spacing: 3) {
             HStack {
             playButton()
             Slider(value: $slideValue , in: sliderRange)
@@ -76,8 +76,8 @@ struct BubbleAudioView: View {
 
 #Preview {
     ScrollView {
-    BubbleAudioView(item: .sentplaceholder)
-    BubbleAudioView(item: .receivedplaceholder)
+    BubbleAudioView(item: .sentPlaceholder)
+    BubbleAudioView(item: .receivedPlaceholder)
 }
     .frame(maxWidth: .infinity)
     .padding(.horizontal)

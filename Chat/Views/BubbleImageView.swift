@@ -115,8 +115,8 @@ struct BubbleImageView: View {
 
 #Preview {
     ScrollView{
-        BubbleImageView(item: .receivedplaceholder)
-        BubbleImageView(item: .sentplaceholder)
+        BubbleImageView(item: .receivedPlaceholder)
+        BubbleImageView(item: .sentPlaceholder)
         
     }
     .frame(maxWidth: .infinity)

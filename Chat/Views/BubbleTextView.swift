@@ -12,8 +12,8 @@ struct BubbleTextView: View {
     
 
     var body: some View {
-        VStack(alignment: item.HorizontalAlignment, spacing: 3) {
-        Text("Salam Kia hal hai Janab ")
+        VStack(alignment: item.horizontalAlignment, spacing: 3) {
+        Text(item.text)
             .padding(10)
             .background(item.backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
@@ -53,8 +53,8 @@ struct BubbleTextView: View {
 
 #Preview {
     ScrollView{
-        BubbleTextView(item: .sentplaceholder)
-        BubbleTextView(item: .receivedplaceholder)
+        BubbleTextView(item: .sentPlaceholder)
+        BubbleTextView(item: .receivedPlaceholder)
     }
     .frame(maxWidth: .infinity)
     .background(Color.gray.opacity(0.4))

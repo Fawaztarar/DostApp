@@ -7,21 +7,27 @@
 
 import Foundation
 import SwiftUI  
+import Firebase
 
 struct MessageItem: Identifiable {
-    let id = UUID().uuidString
+    let id: String
     let text: String
     let type: MessageType
-    let direction: MessageDirection
+    let ownerUid: String
+
+    var direction: MessageDirection{
+        return ownerUid == Auth.auth().currentUser?.uid ? .sent : .received
+    }
     
-    static let sentplaceholder = MessageItem(text: "Thats Cool", type: .text, direction: .sent)
-    static let receivedplaceholder = MessageItem(text: "Hey Whats up", type: .text, direction: .received)
+    static let sentPlaceholder = MessageItem(id: UUID().uuidString, text: "Holy Spaghetti", type: .text, ownerUid: "1")
+    static let receivedPlaceholder = MessageItem(id: UUID().uuidString, text: "Hey Dude what's up", type: .text, ownerUid: "1")
+
 
     var alignment: Alignment {
         return direction == .received ? .leading : .trailing
     }
 
-    var HorizontalAlignment: HorizontalAlignment {
+    var horizontalAlignment: HorizontalAlignment {
         return direction == .received ? .leading : .trailing
     }
 
@@ -29,11 +35,21 @@ struct MessageItem: Identifiable {
         return direction == .sent ? .bubbleGreen : .bubbleWhite
     }
     static let stubMessages: [MessageItem] = [
-        MessageItem(text: "Hello", type: .text, direction: .sent),
-        MessageItem(text: "Checkout this Photo", type: .photo, direction: .received),
-        MessageItem(text: "Play this Video", type: .video, direction: .sent),
-        MessageItem(text: "Listen to this Audio", type: .audio, direction: .received), 
+        MessageItem(id: UUID().uuidString, text: "Hello", type: .text, ownerUid: "3"),
+        MessageItem(id: UUID().uuidString, text: "Checkout this Photo", type: .photo, ownerUid: "4"),
+        MessageItem(id: UUID().uuidString, text: "Play this Video", type: .video, ownerUid: "5"),
+        MessageItem(id: UUID().uuidString, text: "Listen to this Audio", type: .audio, ownerUid: "6")
     ]
+}
+
+extension MessageItem {
+    init(id: String, dict: [String: Any]) {
+        self.id = id
+        self.text = dict[.text] as? String ?? ""
+        let type = dict[.type] as? String ?? "text"
+        self.type = MessageType(type) 
+        self.ownerUid = dict[.ownerUid] as? String ?? ""
+    }
 }
 
 

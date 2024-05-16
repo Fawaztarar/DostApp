@@ -29,6 +29,25 @@ enum AdminMessageType: String {
                 return "Audio"
             }
         } 
+
+        init(_ stringValue: String) {
+            switch stringValue {
+            case "text":
+                self = .text
+
+            case "photo":
+                self = .photo
+
+            case "video":
+                self = .video
+
+            case "audio":
+                self = .audio
+                
+            default:
+                self = .text
+            }
+        }
     }
 
 enum MessageDirection {

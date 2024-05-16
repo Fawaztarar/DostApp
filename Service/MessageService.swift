@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Firebase
+
 // handle sending, fetching messages and setting reactions
 
 struct MessageService {
@@ -32,5 +34,23 @@ struct MessageService {
 
 
         onComplete()
+    }
+
+    static func getMessages(for channel: ChannelItem, completion: @escaping ([MessageItem]) -> Void) {
+        FirebaseConstants.MessagesRef.child(channel.id).observe(.value) { snapshot in            
+            guard let dict = snapshot.value as? [String: Any] else { return }
+            var messages: [MessageItem] = []
+            dict.forEach { key, value in
+                let messageDict = value as? [String: Any] ?? [:]
+                let message = MessageItem(id: key, dict: messageDict)
+                messages.append(message)
+                completion(messages)
+                // print("messageDict: \(messageDict)")
+            }
+            
+        } withCancel: { error in
+            print("failed to get messages: \(channel.title)")
+     
+        }
     }
 } 

@@ -10,11 +10,10 @@ import Combine
 
 final class ChatRoomViewModel: ObservableObject {
         @Published var textMessage = ""
+        @Published var messages = [MessageItem]()
         private let channel: ChannelItem
         private var subscriptions = Set<AnyCancellable>()
-
-
-        @Published var currentUser: UserItem?
+        private var currentUser: UserItem?
 
         init(_ channel: ChannelItem) {
             self.channel = channel
@@ -29,12 +28,11 @@ final class ChatRoomViewModel: ObservableObject {
 
         private func listenToAuthState() {
             // Listen to auth state
-            AuthManager.shared.authState
-                .receive(on: DispatchQueue.main)
-                .sink { authState in
+            AuthManager.shared.authState.receive(on: DispatchQueue.main).sink {[weak self] authState in
                     switch authState {
                     case .loggedIn(let currentUser):
-                        self.currentUser = currentUser
+                        self?.currentUser = currentUser
+                        self?.getMessages()
                     default:
                         break
                     }
@@ -46,8 +44,13 @@ final class ChatRoomViewModel: ObservableObject {
             MessageService.sendTextMessage(to: channel, from: currentUser, textMessage) {
                 [weak self] in
                 self?.textMessage = ""
-                // print("MessageService is sending")
+               
             }
-            // print("textMessage: \(textMessage)")
+        }
+        private func getMessages() {
+            MessageService.getMessages(for: channel) {[weak self] messages in
+                self?.messages = messages
+                print ("messages: \(messages.map { $0.text })")
+            }
         }
 }
