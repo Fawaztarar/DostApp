@@ -15,10 +15,12 @@ enum AdminMessageType: String {
 }
 
     enum MessageType {
-        case text, photo, video, audio
+        case admin(_ type: AdminMessageType), text, photo, video, audio
 
         var title: String {
             switch self {
+            case .admin:
+                return "Admin"
             case .text:
                 return "Text"
             case .photo:
@@ -30,7 +32,7 @@ enum AdminMessageType: String {
             }
         } 
 
-        init(_ stringValue: String) {
+        init?(_ stringValue: String) {
             switch stringValue {
             case "text":
                 self = .text
@@ -45,10 +47,28 @@ enum AdminMessageType: String {
                 self = .audio
                 
             default:
-                self = .text
+                if let adminMessageType = AdminMessageType(rawValue: stringValue) {
+                    self = .admin(adminMessageType)
+                } else {
+                    return nil
+                }
             }
         }
     }
+
+extension MessageType {
+    static func ==(lhs: MessageType, rhs: MessageType) -> Bool {
+        switch (lhs, rhs) {
+        case (.admin(let leftAdmin), .admin(let rightAdmin)):
+            return leftAdmin == rightAdmin
+        case (.text, .text), (.photo, .photo), (.video, .video), (.audio, .audio):
+            return true
+             
+        default:
+            return false
+        }
+    }
+}
 
 enum MessageDirection {
     case sent, received
