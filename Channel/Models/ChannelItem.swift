@@ -18,13 +18,25 @@ struct ChannelItem: Identifiable {
     var adminUids: [String]
     var membersUids: [String]
     var members: [UserItem]
-    var thumbnailUrl: String?
+    private  var thumbnailUrl: String?
     let createdBy: String  
     
     // Computed property to determine if it's a group chat
     var isGroupChat: Bool {
         return membersCount > 2
     }
+
+    var coverImageUrl: String? {
+    if let thumbnailUrl = thumbnailUrl {
+        return thumbnailUrl
+
+    } 
+    if !isGroupChat == false {
+        return membersExcludeCurrentUser.first?.profileImageUrl
+    }
+    return nil
+}
+
 
     var membersExcludeCurrentUser: [UserItem] {
         guard let currentUid = Auth.auth().currentUser?.uid else { return [] }

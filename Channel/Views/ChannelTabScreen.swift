@@ -123,6 +123,7 @@ extension ChannelTabScreen {
             +
             Text("end-to-end encrypted.")
                 .foregroundColor(.blue)
+                
                
         }
     }
