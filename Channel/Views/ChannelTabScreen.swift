@@ -11,16 +11,14 @@ struct ChannelTabScreen: View {
     @State private var searchText = ""
     @StateObject private var viewModel = ChannelTabViewModel()
 
-    
-
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $viewModel.navRoutes) {
             List {
                 archiveButton()
                  
                 ForEach(viewModel.channels ) { channel in
-                    NavigationLink {
-                        ChatRoomScreen(channel: channel)
+                    Button {
+                        viewModel.navRoutes.append(.chatRoom(channel))
                     } label: {
                         ChannelItemView(channel: channel)
                     }
@@ -36,6 +34,9 @@ struct ChannelTabScreen: View {
                 leadingNavItem()
                 trailingNavItem()
             }
+            .navigationDestination(for: ChannelTabRoutes.self) { route in
+                destinationView(for: route)
+            }
             .sheet(isPresented: $viewModel.showChatPartnerPickerView) {
                 ChatPartnerPickerScreen(onCreate: viewModel.onNewChannelCreation)
             }
@@ -45,14 +46,21 @@ struct ChannelTabScreen: View {
                     ChatRoomScreen(channel: newChannel)
                 }
              }
-            
-                  
         }
     }
 }
 
-
 extension ChannelTabScreen {
+    
+    @ViewBuilder
+    private func destinationView(for route: ChannelTabRoutes) -> some View {
+        switch route {
+        case .chatRoom (let channel):
+            ChatRoomScreen(channel: channel)
+        }
+    }
+    
+    
     @ToolbarContentBuilder
     private func leadingNavItem() -> some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {

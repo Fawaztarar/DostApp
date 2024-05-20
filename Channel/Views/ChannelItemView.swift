@@ -31,7 +31,7 @@ private func titleTextVeiw() -> some View {
 
         Spacer()
 
-        Text("5:00 PM")
+        Text(channel.lastMessageTimeStamp.dayOrTimeRepresentation)
             .font(.system(size: 15))
             .foregroundStyle(.gray)
         }
