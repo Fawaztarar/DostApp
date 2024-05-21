@@ -1,15 +1,12 @@
-//
 //  ChannelTabViewModel.swift
 //  WhatsApp
 //
 //  Created by Fawaz Tarar on 10/05/2024.
 //
-
 import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 import Firebase
-
 
 enum ChannelTabRoutes: Hashable {
     case chatRoom(_ channel: ChannelItem)
@@ -24,8 +21,11 @@ final class ChannelTabViewModel: ObservableObject {
     @Published var channels = [ChannelItem]()
     typealias ChannelId = String
     @Published var channelDictionary: [ChannelId: ChannelItem] = [:]
+    
+    private let currentUser: UserItem
 
-    init() {
+    init(_ currentUser: UserItem) {
+        self.currentUser = currentUser
         fetchCurrentUserChannels()
     }
 
@@ -33,11 +33,8 @@ final class ChannelTabViewModel: ObservableObject {
         showChatPartnerPickerView = false
         newChannel = channel 
         navigateToChatRoom = true
-    } 
+    }
 
-
-
-    
     private func fetchCurrentUserChannels() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         FirebaseConstants.UserChannelRef.child(currentUid).observe(.value) {[weak self] snapshot in
@@ -54,12 +51,15 @@ final class ChannelTabViewModel: ObservableObject {
 
     private func getChannel(with channelId: String) {
         FirebaseConstants.ChannelsRef.child(channelId).observe(.value) {[weak self] snapshot in
-            guard let dict = snapshot.value as? [String: Any] else { return }
+            guard let dict = snapshot.value as? [String: Any], let self = self else { return }
             var channel = ChannelItem(dict)
-            self?.getChannelMembers(channel) { members in
+            self.getChannelMembers(channel) { members in
                 channel.members = members
-                self?.channelDictionary[channelId] = channel 
-                self?.reloadData()
+                if channel.isGroupChat == false {
+                    channel.members.append(self.currentUser)
+                }
+                self.channelDictionary[channelId] = channel
+                self.reloadData()
                 // self?.channels.append(channel)
                 print("channel: \(channel.title)")
             }
