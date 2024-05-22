@@ -4,31 +4,33 @@
 //
 //  Created by Fawaz Tarar on 03/05/2024.
 //
-
 import SwiftUI
 
 struct BubbleImageView: View {
-    let item: MessageItem // Corrected variable type name (assuming MessageItem is defined elsewhere)
+    let item: MessageItem
 
     var body: some View {
-        HStack {
+        HStack(alignment: .bottom, spacing: 5) {
             if item.direction == .sent { Spacer() }
-            HStack {
-                if item.direction == .sent { shareButton() }
-                
+            
+            if item.showGroupPartnerInfo {
+                CircularProfileImageView(item.sender?.profileImageUrl, size: .mini)
+                    .offset(y :5)
+            }
+            
+            
                 messageTextView()
                     .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
                     .overlay{
                         playButton()
                         .opacity(item.type == .video ? 1 : 0)
                     }
-                
-                
-                if item.direction == .received  { shareButton() }
-            }
             
             if item.direction == .received { Spacer() }
         }
+        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: item.alignment)
+        .padding(.leading, item.leadingPadding)
+        .padding(.trailing, item.trailingPadding)
     }
     
     private func playButton() -> some View {
@@ -41,7 +43,6 @@ struct BubbleImageView: View {
                 .clipShape(Circle())
          }
      
-
     private func messageTextView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Image(.stubImage0)
@@ -62,11 +63,13 @@ struct BubbleImageView: View {
                 .overlay(alignment: .bottomTrailing) {
                     timeStampTextView()
                 }
-            Text(item.text)
-                .padding([.horizontal, .bottom], 8)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(width: 220)
             
+            if !item.text.isEmptyOrWhitespace {
+                Text(item.text)
+                    .padding([.horizontal, .bottom], 8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(width: 220)
+            }
         }
         .background( item.backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))

@@ -13,7 +13,16 @@ struct BubbleAudioView: View {
     @State private var sliderRange: ClosedRange<Double> = 0...20
 
     var body: some View {
-        VStack(alignment: item.horizontalAlignment, spacing: 3) {
+        HStack(alignment: .bottom, spacing: 5) {
+            
+            if item.showGroupPartnerInfo {
+                CircularProfileImageView(item.sender?.profileImageUrl, size: .mini)
+                    .offset(y :5)
+            }
+            if item.direction == .sent {
+                timeStampTextView()
+            }
+            
             HStack {
             playButton()
             Slider(value: $slideValue , in: sliderRange)
@@ -31,12 +40,14 @@ struct BubbleAudioView: View {
         .clipShape(RoundedRectangle(cornerRadius: 16, style:  .continuous))
         .applyTail(item.direction )
             
-        timeStampTextView()
+        if item.direction == .received {
+            timeStampTextView()
+        }
     }
     .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
     .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: item.alignment)
-    .padding(.leading, item.direction == .received ? 5 : 100)
-    .padding(.trailing, item.direction == .received ? 100 : 5)
+    .padding(.leading, item.leadingPadding)
+    .padding(.trailing, item.trailingPadding)
         
         }
 
@@ -51,27 +62,12 @@ struct BubbleAudioView: View {
                 .foregroundStyle(item.direction == .received ? .white : .black)
          }
     }
+    
     private func timeStampTextView() -> some View {
-        HStack {
-            
-            Text("12:00 PM")
-                .font(.system(size: 13))
+            Text("12:05 PM")
+                .font(.footnote)
                 .foregroundStyle(.gray)
-            
-            if item.direction == .sent {
-                Image(.seen)
-                    .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 15, height: 15)
-                    .foregroundStyle(Color(.systemBlue))
-                    
-                
-                
-            }
-            
-        }
     }
-
 }
 
 #Preview {
