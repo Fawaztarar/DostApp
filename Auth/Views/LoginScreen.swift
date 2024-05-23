@@ -36,8 +36,14 @@ struct LoginScreen: View {
                  
             }
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
-            .background(Color.teal.gradient)
-            .ignoresSafeArea() 
+            .background{
+                LinearGradient(
+                    gradient: Gradient(colors: [.green, Color.green.opacity(0.8), .teal]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            }
+            .ignoresSafeArea()
             .alert(isPresented: $authScreenModel.errorState.showError) {
                 Alert(title: Text(authScreenModel.errorState.errorMessage), dismissButton: .default(Text("OK"))
                 )
@@ -49,7 +55,7 @@ struct LoginScreen: View {
         Button {
             
         } label: {
-             Text("Forget Password ?")
+             Text("پاس ورڈ بھول گئے؟")
                 .foregroundStyle(.white)
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .trailing)
                 .padding(.trailing, 32)
@@ -65,9 +71,9 @@ struct LoginScreen: View {
             HStack {
                 Image(systemName: "sparkles")
                 (
-                    Text("Dont Have an account ? ")
+                    Text("کیا آپ کا اکاؤنٹ نہیں ہے ؟")
                     +
-                    Text("Create one").bold()
+                    Text("ایک بنائیں").bold()
                 )
                 Image(systemName: "sparkles")
             }

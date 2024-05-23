@@ -2,7 +2,7 @@
 //  CallsTabScreen.swift
 //  WhatsApp
 //
-//  Created by Fawaz Tarar on 01/05/2024.
+//  Created by Fawaz Tarar on 22/05/2024.
 //
 
 import SwiftUI
@@ -24,20 +24,20 @@ struct CallsTabScreen: View {
                         RecentCallItemView()
                     }
                 }   header: {
-                     Text("Recent")
-                            .textCase(nil) 
-                            .foregroundColor(.whatsAppBlack) 
+                     Text("حالیہ")
+                            .textCase(nil)
+                            .foregroundColor(.whatsAppBlack)
                             .font(.headline)
-                            .bold() 
+                            .bold()
                    
                  }
             }
-            .navigationTitle("Calls")
+            .navigationTitle("کالز")
             .searchable(text:   $searchText)
             .toolbar {
                 leadingNavItem()
                 trailingNavItem()
-                principalNavItem()  
+                principalNavItem()
             }
             
         }
@@ -70,7 +70,7 @@ extension CallsTabScreen {
             Picker("", selection: $callHistory) {
                 ForEach(CallHistory.allCases) { item in
                 Text(item.rawValue.capitalized)
-                    .tag(item)       
+                    .tag(item)
                  }
             }
             .pickerStyle(.segmented)
@@ -83,9 +83,9 @@ extension CallsTabScreen {
         private enum CallHistory: String, CaseIterable, Identifiable {
             case all, missed
 
-            var id: String { 
-                return rawValue 
-            } 
+            var id: String {
+                return rawValue
+            }
         }
 
     }
@@ -131,7 +131,7 @@ private func RecentCallItemView() -> some View {
 }
  private func RecentCallsTextView() -> some View {
     VStack(alignment: .leading) {
-            Text("Fawaz Tarar")
+            Text("فواز تراڑ")
                 
             HStack {
                 Image(systemName: "phone.arrow.up.right.fill")
@@ -150,3 +150,4 @@ private func RecentCallItemView() -> some View {
 #Preview {
     CallsTabScreen()
 }
+

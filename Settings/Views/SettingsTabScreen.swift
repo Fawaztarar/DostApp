@@ -35,7 +35,7 @@ struct SettingsTabScreen: View {
                     
                     }
                 }
-                .navigationTitle("Settings")
+                .navigationTitle("ترتیبات")
                 .searchable(text: $searchText)
                 .toolbar {
                     leadingNavItem() 
@@ -77,7 +77,7 @@ struct SettingsTabScreen: View {
      private func userInfoTextView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("User x2")
+                Text("فواز تراڑ")
                     .font(.title2)
                     
                 Spacer()
@@ -91,7 +91,7 @@ struct SettingsTabScreen: View {
 
                 
             }
-            Text("Hey there! I am using WhatsApp.")
+            Text("میں  دوست ایپ پر دستیاب ہوں۔")
                 .font(.callout)
                 .foregroundStyle(.gray)
      }

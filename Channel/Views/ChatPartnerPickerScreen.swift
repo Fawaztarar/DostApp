@@ -34,7 +34,7 @@ struct ChatPartnerPickerScreen: View {
                             }
                     }
                 } header : {
-                    Text("Contacts on xWhatsApp")
+                    Text("دوست ایپ پر رابطے")
                         .textCase(.none)
                         .bold() 
                 }
@@ -43,9 +43,9 @@ struct ChatPartnerPickerScreen: View {
                 }
                 
             }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search name or number")
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "نام یا نمبر تلاش کریں")
             
-            .navigationTitle( "New Chat")
+            .navigationTitle( "نئی گفتگو")
             .navigationDestination(for: ChannelCreationRoute.self) { route in
                 destinationView(for: route)
                 
@@ -53,7 +53,7 @@ struct ChatPartnerPickerScreen: View {
             .navigationBarTitleDisplayMode(.inline)
             .alert(isPresented: $viewModel.errorState.showError) {
                 Alert(title: Text("🤨 Uh ho"),
-                      message: Text(viewModel.errorState.errorMessage), dismissButton: .default(Text("OK"))
+                      message: Text(viewModel.errorState.errorMessage), dismissButton: .default(Text("ٹھیک ہے"))
                 )
                 
             }
@@ -147,9 +147,9 @@ extension ChatPartnerPickerScreen {
 }
 
 enum ChatPartnerPickerOption: String, CaseIterable, Identifiable {
-    case newGroup = "New Group"
-    case newContact = "New Contact"
-    case newCommunity = "New Community"
+    case newGroup = "نیا گروپ"
+    case newContact = "نیا رابطہ"
+    case newCommunity = "نئی کمیونٹی"
 
     var id: String { 
         return rawValue 

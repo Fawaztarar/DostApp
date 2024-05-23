@@ -14,7 +14,7 @@ struct AuthHeaderView: View {
                 .resizable()
                 .frame(width: 40, height: 40)
             
-            Text("xWhatsApp")
+            Text("Dost دوست")
                 .font(.largeTitle)
                 .foregroundStyle(.white)
                 .fontWeight(.semibold)

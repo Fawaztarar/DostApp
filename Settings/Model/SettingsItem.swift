@@ -25,7 +25,7 @@ extension SettingsItem {
     static let avatar = SettingsItem(
         imageName: "photo", 
         backgroundColor: .blue, 
-        title: "Change Profile Photo"
+        title: "پروفائل تصویر تبدیل کریں"
         )
   
     
@@ -57,7 +57,7 @@ extension SettingsItem {
     static let privacy = SettingsItem(
         imageName: "lock.fill", 
         backgroundColor: .blue, 
-        title: "Privacy"
+        title: "رازداری"
         )
 
     
@@ -65,13 +65,13 @@ extension SettingsItem {
         imageName: "whatsapp-black", 
         imageType: .assetImage,
         backgroundColor: .green, 
-        title: "Chats"
+        title: "گفتگو"
         )
     
     static let notifications = SettingsItem(
         imageName: "bell.badge.fill", 
         backgroundColor: .red, 
-        title: "Notifications"
+        title: "اطلاعات"
         )
 
     static let storage = SettingsItem(
@@ -83,7 +83,7 @@ extension SettingsItem {
     static let help = SettingsItem(
         imageName: "info", 
         backgroundColor: .blue, 
-        title: "Help"
+        title: "مدد"
         )
     
     static let inviteAFriend = SettingsItem(
@@ -138,6 +138,6 @@ extension SettingsItem {
     static let contactDetails = SettingsItem(
         imageName: "person.circle", 
         backgroundColor: .gray, 
-        title: "Contact Details"
+        title: "رابطے کی تفصیلات"
         )
 }

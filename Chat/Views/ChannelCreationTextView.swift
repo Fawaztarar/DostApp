@@ -17,7 +17,7 @@ struct ChannelCreationTextView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Text(Image(systemName: "lock.fill"))
-                + Text(" Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.")
+                + Text(" پیغامات اور کالز اینڈ ٹو اینڈ انکرپٹڈ ہیں۔ اس گفتگو کے باہر کوئی بھی، یہاں تک کہ دوستی بھی، انہیں پڑھ یا سن نہیں سکتا")
                 + Text(" Learn more.")
                 .bold()
         }

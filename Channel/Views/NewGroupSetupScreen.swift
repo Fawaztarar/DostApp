@@ -39,7 +39,7 @@ struct NewGroupSetupScreen: View {
             
             } 
             
-            .navigationTitle("New Group")
+            .navigationTitle("یا گروپ")
             .toolbar {
                 trailingNavItem()
         }
@@ -50,7 +50,7 @@ struct NewGroupSetupScreen: View {
 
             TextField("",
              text: $ChannelName,
-                prompt: Text("Group Name(optional)"),
+                prompt: Text("نیا گروپ (اختیاری)"),
                 axis: .vertical
             )    
         }

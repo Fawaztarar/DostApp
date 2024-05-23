@@ -32,7 +32,7 @@ struct ChannelTabScreen: View {
                 footerview()
                 .listRowSeparator(.hidden)
             }
-            .navigationTitle("Chats")
+            .navigationTitle("گفتگو")
             .searchable(text: $searchText)
             .listStyle(.plain)
             .toolbar {
@@ -130,11 +130,11 @@ extension ChannelTabScreen {
         HStack {
             Image(systemName: "lock.fill")
                 .padding(8)
-            Text("Your messages are ")
+            Text("آپ کے پیغامات")
                 .foregroundColor(.gray)
         
             +
-            Text("end-to-end encrypted.")
+            Text("مکمل طور پر رمز کردہ ہیں")
                 .foregroundColor(.blue)
                 
                

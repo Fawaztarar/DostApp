@@ -1,8 +1,8 @@
 //
-//   TabView.swift
+//  MainTabView.swift
 //  WhatsApp
 //
-//  Created by Fawaz Tarar on 30/04/2024.
+//  Created by Fawaz Tarar on 22/05/2024.
 //
 
 import SwiftUI
@@ -52,7 +52,7 @@ struct MainTabView: View {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         UITabBar.appearance().standardAppearance = appearance
-        UITabBar.appearance().scrollEdgeAppearance = appearance 
+        UITabBar.appearance().scrollEdgeAppearance = appearance
         
     }
  }

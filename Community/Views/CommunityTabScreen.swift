@@ -14,7 +14,7 @@ struct CommunityTabScreen: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Image(.communities)
                     Group {
-                        Text("Stay Connected with Community")
+                        Text("برادریوں کے ساتھ جڑے رہیں")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.whatsAppBlack)
@@ -34,7 +34,7 @@ struct CommunityTabScreen: View {
            
             }
             .padding()
-            .navigationTitle("Communities")
+            .navigationTitle("برادریاں")
 
              
             }

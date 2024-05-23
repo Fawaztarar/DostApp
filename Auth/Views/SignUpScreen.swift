@@ -18,13 +18,15 @@ struct SignUpScreen: View {
             AuthHeaderView()
             AuthTextField(type: .email,  text: $authScreenModel.email)
             
+            
+            
             let usernameType =
             AuthTextField.InputType.custom("Username", "at")
             AuthTextField(type: usernameType,  text: $authScreenModel.username)
             
             AuthTextField(type: .password,  text: $authScreenModel.password)
             
-            AuthButton(title: "Create an Account") {
+            AuthButton(title: "نیا اکاؤنٹ بنائیں") {
                 Task {
                     await authScreenModel.handleSignUp()
                 }
@@ -45,7 +47,7 @@ struct SignUpScreen: View {
                 startPoint: .top,
                 endPoint: .bottom
             )
-        
+
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden()
@@ -58,7 +60,7 @@ struct SignUpScreen: View {
             HStack {
                 Image(systemName: "sparkles")
                 (
-                    Text("Already created an account ?  ")
+                    Text(" پہلے ہی اکاؤنٹ بنا چکا ہے ؟ ")
                     +
                     Text("Log In").bold()
                 )
