@@ -21,7 +21,7 @@ struct UpdateTabScreen: View {
                 Section {
                     RecentUpdatesItemView()
                 } header: {
-                    Text("Recent Updates")
+                    Text("تازہ ترین معلومات")
                 }
                 
 
@@ -36,13 +36,13 @@ struct UpdateTabScreen: View {
 
             }  
             .listStyle(.grouped)
-            .navigationTitle("Update Tab")
+            .navigationTitle("معلومات")
             .searchable(text: $searchText)
         }
     }
     private func ChannelSectionHeader() -> some View {
         HStack {
-            Text("Channels")
+            Text("چینلز")
                 .font(.title3)
                 .bold()
                 .foregroundColor(.whatsAppBlack)
@@ -78,7 +78,7 @@ struct StatusSectionHeader: View {
                 .imageScale(.large)
             
             (
-                Text("You can share text, photos, videos and GIFs that disappear after 24 hours.")
+                Text("آپ متن، تصاویر، ویڈیوز اور GIFs شیئر کر سکتے ہیں جو 24 گھنٹوں بعد غائب ہو جاتے ہیں۔")
                 +
                 Text("  ")
                 +
@@ -151,10 +151,10 @@ struct RecentUpdatesItemView: View {
                 .frame(width: UpdateTabScreen.Constant.imageDimen, height: UpdateTabScreen.Constant.imageDimen)
             
             VStack(alignment: .leading) {
-                Text("Fawaz Tarar")
+                Text("فواز تراڑ")
                     .font(.callout)
                     .bold()
-                Text("1h ago")
+                Text("گھنٹہ پہلے")
                     .foregroundStyle(.gray)
                     .font(.system(size: 15))
             }
@@ -164,7 +164,7 @@ struct RecentUpdatesItemView: View {
 struct ChannelListView: View {
     var body: some View {
         HStack {
-            Text("Stay updated on topics that matter to you")
+            Text("ان موضوعات پر تازہ ترین معلومات حاصل کریں جو آپ کے لیے اہم ہیں")
                 .font(.callout)
                 .padding(.horizontal)
                 .foregroundColor(.gray)}
@@ -190,14 +190,14 @@ struct SuggestedChannelItemView: View {
                 .frame(width: UpdateTabScreen.Constant.imageDimen, height: UpdateTabScreen.Constant.imageDimen)
             
             
-            Text("Real Madrid C.F.")
+            Text("خبریں پاکستان")
                     .font(.callout)
                     .bold()
             
             Button {
                 // Handle follow button action
             } label: {
-                Text("Follow") 
+                Text("پیروی کریں")
                     .bold()
                     .padding(5)
                     .frame(maxWidth: .infinity)
@@ -220,16 +220,6 @@ struct SuggestedChannelItemView: View {
 }
 
 
-//NavigtionStack
-//List
-//navigationtitle
-//searchable
-// state var for searchText
 
-
-
-// Struc Status Section with view
-// HStack Circle
-// VStack Text my Status bold + Text Add to my status
 
 
