@@ -77,7 +77,7 @@ struct SettingsTabScreen: View {
      private func userInfoTextView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("فواز تراڑ")
+                Text("فواز تارڑ")
                     .font(.title2)
                     
                 Spacer()

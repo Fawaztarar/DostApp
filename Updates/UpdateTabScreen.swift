@@ -151,7 +151,7 @@ struct RecentUpdatesItemView: View {
                 .frame(width: UpdateTabScreen.Constant.imageDimen, height: UpdateTabScreen.Constant.imageDimen)
             
             VStack(alignment: .leading) {
-                Text("فواز تراڑ")
+                Text("فواز تارڑ")
                     .font(.callout)
                     .bold()
                 Text("گھنٹہ پہلے")

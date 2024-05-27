@@ -131,7 +131,7 @@ private func RecentCallItemView() -> some View {
 }
  private func RecentCallsTextView() -> some View {
     VStack(alignment: .leading) {
-            Text("فواز تراڑ")
+            Text("فواز تارڑ")
                 
             HStack {
                 Image(systemName: "phone.arrow.up.right.fill")

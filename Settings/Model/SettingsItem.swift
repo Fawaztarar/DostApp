@@ -24,39 +24,39 @@ struct SettingsItem {
 extension SettingsItem {
     static let avatar = SettingsItem(
         imageName: "photo", 
-        backgroundColor: .blue, 
+        backgroundColor: .black,
         title: "پروفائل تصویر تبدیل کریں"
         )
   
     
     static let broadCastList = SettingsItem(
         imageName: "megaphone.fill", 
-        backgroundColor: .green, 
+        backgroundColor: .black,
         title: "Broadcast List"
         )
     
 
     static let starredMessages = SettingsItem(
         imageName: "star.fill", 
-        backgroundColor: .yellow, 
+        backgroundColor: .black,
         title: "Starred Messages"
         )
 
     static let linkedDevices = SettingsItem(
         imageName: "laptopcomputer", 
-        backgroundColor: .green, 
+        backgroundColor: .black,
         title: "Linked Devices"
         )
     
     static let account = SettingsItem(
         imageName: "key.fill", 
-        backgroundColor: .blue, 
+        backgroundColor: .black,
         title: "Account"
         )
 
     static let privacy = SettingsItem(
         imageName: "lock.fill", 
-        backgroundColor: .blue, 
+        backgroundColor: .black,
         title: "رازداری"
         )
 
@@ -64,80 +64,85 @@ extension SettingsItem {
     static let chats = SettingsItem(
         imageName: "whatsapp-black", 
         imageType: .assetImage,
-        backgroundColor: .green, 
+        backgroundColor: .black,
         title: "گفتگو"
         )
     
     static let notifications = SettingsItem(
         imageName: "bell.badge.fill", 
-        backgroundColor: .red, 
+        backgroundColor: .black,
         title: "اطلاعات"
         )
 
     static let storage = SettingsItem(
         imageName: "arrow.up.arrow.down", 
-        backgroundColor: .green, 
+        backgroundColor: .black,
         title: "Storage and Data"
         )
     
     static let help = SettingsItem(
         imageName: "info", 
-        backgroundColor: .blue, 
+        backgroundColor: .black,
         title: "مدد"
         )
     
     static let inviteAFriend = SettingsItem(
         imageName: "heart.fill", 
-        backgroundColor: .red, 
+        backgroundColor: .black,
         title: "Invite a Friend"
         )
     
 
     static let media = SettingsItem(
         imageName: "photo.fill.on.rectangle.fill", 
-        backgroundColor: .green, 
+        backgroundColor: .black,
         title: "Media, Links, and Docs"
         )
 
     static let mute = SettingsItem(
         imageName: "speaker.wave.2.fill", 
-        backgroundColor: .green, 
+        backgroundColor: .black,
         title: "Mute"
         )
 
     static let wallpaper = SettingsItem(
         imageName: "circle.hexagongrid.fill", 
-        backgroundColor: .mint, 
+        backgroundColor: .black,
         title: "Wallpaper"
         )
 
     static let saveToCameraRoll = SettingsItem(
         imageName: "square.and.arrow.down",
-        backgroundColor: .yellow,
+        backgroundColor: .black,
         title: "Save to Camera Roll"
         )
     
     static let encryption  = SettingsItem(
         imageName: "lock.fill", 
-        backgroundColor: .blue, 
+        backgroundColor: .black,
         title: "Encryption"
         )
 
     static let disappearingmessages = SettingsItem(
         imageName: "timer", 
-        backgroundColor: .green, 
+        backgroundColor: .black,
         title: "Disappearing Messages"
         )
 
     static let lockChat = SettingsItem(
         imageName: "lock.doc.fill", 
-        backgroundColor: .blue, 
+        backgroundColor: .black,
         title: "Lock Chat"
         )
 
     static let contactDetails = SettingsItem(
         imageName: "person.circle", 
-        backgroundColor: .gray, 
+        backgroundColor: .black, 
         title: "رابطے کی تفصیلات"
+        )
+    static let signOut = SettingsItem(
+            imageName: "arrow.right.square.fill",
+            backgroundColor: .red,
+            title: "Sign Out"
         )
 }
