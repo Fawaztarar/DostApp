@@ -38,9 +38,10 @@ struct ChatRoomScreen: View {
     }
     private func bottomSafeAreaView() -> some View {
         VStack(spacing: 0) {
+            
             Divider()
             if viewModel.showPhotoPickerPreview  {
-                MediaAttachmentPreview(selectedPhotos: viewModel.selectedPhotos)
+                MediaAttachmentPreview(mediaAttachments: viewModel.mediaAttachments)
                 Divider()
             }
             
