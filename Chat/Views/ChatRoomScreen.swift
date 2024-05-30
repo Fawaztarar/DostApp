@@ -35,13 +35,22 @@ struct ChatRoomScreen: View {
         .safeAreaInset(edge: .bottom) {
             bottomSafeAreaView()
         }
+        .fullScreenCover(isPresented: $viewModel.videoPlayerState.show) {
+            if let player = viewModel.videoPlayerState.player {
+                MediaPlayerView(player: player) {
+                    viewModel.dismissMediaPlayer()
+                }
+            }
+        }
     }
     private func bottomSafeAreaView() -> some View {
         VStack(spacing: 0) {
             
             Divider()
             if viewModel.showPhotoPickerPreview  {
-                MediaAttachmentPreview(mediaAttachments: viewModel.mediaAttachments)
+                MediaAttachmentPreview(mediaAttachments: viewModel.mediaAttachments) { action in 
+                    viewModel.handleMediaAttachmentPreview(action)
+                }
                 Divider()
             }
             
