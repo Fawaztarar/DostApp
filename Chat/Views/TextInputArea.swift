@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct TextInputArea: View {
-    @Binding var textMessage: String
-    let actionHandler: (_ action: UserAction) -> Void
-    @State private var isRecording = false
     @State private var isPulsing = false
+    @Binding var textMessage: String
+    @Binding var isRecording: Bool
+    @Binding var elapsedTime: TimeInterval
+    
+    let actionHandler: (_ action: UserAction) -> Void
 
     private var disableSendButton: Bool {
         return textMessage.isEmptyOrWhitespace || isRecording
@@ -21,6 +23,9 @@ struct TextInputArea: View {
         HStack(alignment: .bottom,spacing: 5 ){
             imagePickerButton()
                 .padding(3)
+                .disabled(isRecording)
+                .grayscale(isRecording ? 0.8 : 0)
+            
             audioRecorderButton()
             if isRecording {
                 audioSessionIndicatorView()
@@ -38,6 +43,15 @@ struct TextInputArea: View {
         .padding(.top,10)
         .background(.whatsAppWhite)
         .animation(.spring, value: isRecording)
+        .onChange(of: isRecording) { oldValue, isRecording in
+            if isRecording {
+                withAnimation(.easeInOut(duration :1.5).repeatForever()) {
+                    isPulsing = true
+                }
+            } else {
+                isPulsing = false
+            }
+        }
         
     }
     private func audioSessionIndicatorView() -> some View {
@@ -53,7 +67,7 @@ struct TextInputArea: View {
             
             Spacer()
             
-            Text("00.01")
+            Text(elapsedTime.formatElapsedTime)
                 .font(.callout)
                 .fontWeight(.semibold)
         }
@@ -96,10 +110,7 @@ private func imagePickerButton() -> some View {
 private func audioRecorderButton() -> some View {
     Button {
         actionHandler(.recordAudio)
-        isRecording.toggle()
-        withAnimation(.easeInOut(duration :1.5).repeatForever()) {
-            isPulsing.toggle()
-        }
+        
         
     } label: {
         Image(systemName: isRecording ? "square.fill" : "mic.fill")
@@ -137,7 +148,9 @@ extension TextInputArea{
 }
 
 #Preview {
-    TextInputArea(textMessage: .constant("")) {_ in 
-        
+    TextInputArea(textMessage: .constant(""), isRecording: .constant(false),
+                  elapsedTime: .constant(0)) { action in
+        //
     }
 }
+
