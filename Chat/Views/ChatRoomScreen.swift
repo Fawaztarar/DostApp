@@ -62,7 +62,7 @@ struct ChatRoomScreen: View {
             TextInputArea(
                 textMessage: $viewModel.textMessage,
                 isRecording: $viewModel.isRecordingVoiceMessage,
-                elapsedTime: $viewModel.elapsedVoiceMessageTime
+                elapsedTime: $viewModel.elapsedVoiceMessageTime, disableSendButton: viewModel.disableSendButton
             ) { action in
                 viewModel.handleTextInputArea(action)
             }

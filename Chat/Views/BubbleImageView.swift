@@ -5,6 +5,7 @@
 //  Created by Fawaz Tarar on 03/05/2024.
 //
 import SwiftUI
+import Kingfisher
 
 struct BubbleImageView: View {
     let item: MessageItem
@@ -19,7 +20,7 @@ struct BubbleImageView: View {
             }
             
             
-                messageTextView()
+                messageImageView()
                     .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
                     .overlay{
                         playButton()
@@ -43,14 +44,18 @@ struct BubbleImageView: View {
                 .clipShape(Circle())
          }
      
-    private func messageTextView() -> some View {
+    private func messageImageView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Image(.stubImage0)
+            
+//            KFImage(URL(string: item.thumbnailUrl ?? ""))
                 .resizable()
+//                .placeholder{ ProgressView()}
                 .scaledToFit()
-                .frame(width: 220, height: 180)
+                .frame(width: item.imageSize.width, height: item.imageSize.height)
                 .clipShape(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                )
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(Color(.systemGray5))
@@ -68,7 +73,7 @@ struct BubbleImageView: View {
                 Text(item.text)
                     .padding([.horizontal, .bottom], 8)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .frame(width: 220)
+                    .frame(width: item.imageSize.width)
             }
         }
         .background( item.backgroundColor)
