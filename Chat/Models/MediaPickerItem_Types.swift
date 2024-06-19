@@ -40,6 +40,7 @@ struct MediaAttachment: Identifiable {
             return UIImage()
         }
     }
+    
     var fileURL: URL? {
         switch type {
         case .photo:
@@ -48,6 +49,17 @@ struct MediaAttachment: Identifiable {
             return fileURL
         case .audio(let voiceURL, _):
             return voiceURL
+        }
+    }
+    
+    var audioDuration: TimeInterval? {
+        switch type {
+        case .audio(_, let duration):
+            return duration
+            
+        default:
+            return nil
+            
         }
     }
 

@@ -111,24 +111,40 @@ final class ChatRoomViewModel: ObservableObject {
             case .photo:
                 sendPhotoMessage(text: text, attachment)
             case .video:
-                break
-//                sendVideoMessage(text: text, attachment: attachment)
+                sendVideoMessage(text: text, attachment)
             case .audio:
-                break
-//                 sendAudioMessage(text: text, attachment: attachment)
+                sendVoiceMessage(text: text, attachment)
             }
         }
     }
 
 
 
-//    private func sendVideoMessage(text: String, attachment: MediaAttachment) {
-//        // Implementation for sending a video message
-//    }
-//
-//    private func sendAudioMessage(text: String, attachment: MediaAttachment) {
-//        // Implementation for sending an audio message
-//    }
+
+
+    private func sendVoiceMessage(text: String, _ attachment: MediaAttachment) {
+        // Uploads the audio file to the storage bucket
+        guard let audioDuration = attachment.audioDuration, let currentUser else { return }
+        uploadFileToStorage(for: .voiceMessage, attachment) {[weak self] fileURL in
+            guard let self else {return}
+            
+            let uploadParams = MessageUploadParams(
+                channel: self.channel,
+                text: text,
+                type: .audio,
+                attachment: attachment,
+                sender: currentUser,
+                audioURL: fileURL.absoluteString,
+                audioDuration: audioDuration
+            )
+            
+            MessageService.sendMediaMessage(to: self.channel, params: uploadParams) { [weak self] in
+                self?.scrollToBottom(isAnimated: true)
+            }
+
+            
+        }
+    }
     
     private func sendPhotoMessage(text: String, _ attachment: MediaAttachment) {
         /// Upload the image to the storage bucket
@@ -152,6 +168,32 @@ final class ChatRoomViewModel: ObservableObject {
             }
         }
     }
+   
+    
+            private func sendVideoMessage(text: String, _ attachment: MediaAttachment) {
+                // Uploads the video file to the storage bucket
+                uploadFileToStorage(for: .videoMessage, attachment) { [weak self] videoURL in
+                    // Upload the video thumbnail
+                    self?.uploadImageToStorage(attachment) {[weak self] thumbnailURL in
+                        guard let self = self, let currentUser = currentUser else { return }
+                        
+                        let uploadParams = MessageUploadParams(
+                            channel: self.channel,
+                            text: text,
+                            type: .video,
+                            attachment: attachment,
+                            thumbnailURL: thumbnailURL.absoluteString,
+                            videoURL: videoURL.absoluteString,
+                            sender: currentUser
+                        )
+
+                        MessageService.sendMediaMessage(to: self.channel, params: uploadParams) { [weak self] in
+                            self?.scrollToBottom(isAnimated: true)
+                        }
+                    }
+                }
+            }
+
     
     private func scrollToBottom(isAnimated: Bool) {
         scrollToBottomRequest.scroll = true
@@ -168,6 +210,26 @@ final class ChatRoomViewModel: ObservableObject {
                 
             case .failure(let error):
                 print("Failed to upload image to Storage: \(error.localizedDescription)")
+            }
+        } progressHandler: { progress in
+            print("Upload image progress: \(progress)")
+        }
+    }
+    
+    private func uploadFileToStorage(
+        for uploadType: FirebaseHelper.UploadType,
+        _ attachment: MediaAttachment, completion: @escaping(_ imageUrl: URL) -> Void) {
+            
+        guard let fileToUpload = attachment.fileURL else { return }
+            
+        FirebaseHelper.uploadFile(for: uploadType, fileURL: fileToUpload) { result in
+            switch result {
+                
+            case .success(let fileURL):
+                completion(fileURL)
+                
+            case .failure(let error):
+                print("Failed to upload file to Storage: \(error.localizedDescription)")
             }
         } progressHandler: { progress in
             print("Upload image progress: \(progress)")
